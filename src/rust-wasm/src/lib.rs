@@ -1,7 +1,44 @@
 #![allow(dead_code)]
-
 use wasm_bindgen::prelude::*;
+use wasm_bindgen::JsValue;
+
 use pulldown_cmark::{Parser, Options, html};
+
+use serde::{Serialize, Deserialize};
+use std::collections::HashMap;
+
+mod structs;
+use structs::Person;
+
+#[derive(Serialize, Deserialize)]
+pub struct Example {
+    pub field1: HashMap<u32, String>,
+    pub field2: Vec<Vec<f32>>,
+    pub field3: [f32; 4],
+    pub field4: Vec<Person>,
+}
+
+#[wasm_bindgen]
+pub fn get_json() -> JsValue {
+    let mut field1 = HashMap::new();
+    field1.insert(0, String::from("ex"));
+    
+    let example = Example {
+        field1,
+        field2: vec![vec![1., 2.], vec![3., 4.]],
+        field3: [1., 2., 3., 4.],
+        field4: vec![Person::new("Hung", "Le"), Person::new("Vy", "Le")]
+    };
+
+    JsValue::from_serde(&example).unwrap()
+}
+
+#[wasm_bindgen]
+pub fn send_json(val: &JsValue) -> JsValue {
+    let example: Example = val.into_serde().unwrap();
+    
+    JsValue::from_serde(&example).unwrap()
+}
 
 #[wasm_bindgen]
 pub fn add(a: f32, b: f32) -> f32 {

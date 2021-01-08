@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import logo from "./logo.svg";
 import "./App.css";
@@ -53,6 +53,14 @@ function App() {
       console.log(fibonacci(n));
       bm_fibonacci(n, m);
       console.timeEnd("js_fibonacci");
+
+      let data = wasm.get_json();
+      console.log("get_json", { data });
+
+      console.log(
+        "send_json",
+        wasm.send_json({ ...data, field2: [...data.field2, [5, 6]] })
+      );
     });
   }, []);
 
