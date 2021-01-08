@@ -34,28 +34,28 @@ pub fn run() -> Result<Vec<Profile>>  {
 #[derive(Serialize, Deserialize, Debug)]
 #[serde(rename_all = "camelCase")]
 pub struct PersonalDetails {
-    first_name: String,
-    last_name: String,
-    primary_address: i32
+  first_name: String,
+  last_name: String,
+  primary_address: i32
 }
 
 #[derive(Serialize, Deserialize, Debug)]
 #[serde(rename_all = "camelCase")]
 pub struct BusinessDetails {
-    name: String,
-    company_role: String,
-    primary_address: i32
+  name: String,
+  company_role: String,
+  primary_address: i32
 }
 
 #[derive(Serialize, Deserialize, Debug)]
 #[serde(tag = "type", rename_all = "camelCase")]
 pub enum Profile {
-    Personal {
-        id: i32,
-        details: PersonalDetails,
-    },
-    Business {
-        id: i32,
-        details: BusinessDetails,
-    },
+  Personal {
+    id: i32,
+    details: PersonalDetails,
+  },
+  Business {
+    id: i32,
+    details: BusinessDetails,
+  },
 }
