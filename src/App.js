@@ -30,7 +30,7 @@ function App() {
   const [state, setState] = useState("");
 
   useEffect(() => {
-    import("./rust-wasm/pkg").then((wasm) => {
+    import("rust-wasm").then((wasm) => {
       console.log({ wasm });
 
       console.log(wasm.add(99999999999, 99999999999));
